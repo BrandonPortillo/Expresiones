@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Validar un formularios con expresiones regulares</title>
+    <link rel="stylesheet" href="estilo1.css">
+</head>
+
+<body bgcolor="aquamarine">
+    <center>
+        <h1>Validar un formulario </h1>
+        <form method="post" action="ver.php" id="procesar" name="procesar">
+            <label for="nombre">Nombre: </label>
+            <input type="text" name="nombre" id="nombre">
+            <br>
+            <br>
+            <label for="apellidos">Apellidos: </label>
+            <input type="text" name="apellidos" id="apellidos">
+            <br>
+            <br>
+            <label for="email">Email: </label>
+            <input type="text" name="email" id="email">
+            <br>
+            <br>
+            <label for="password">Password: </label>
+            <input type="password" name="password" id="password">
+            <br>
+            <br>
+            <label for="confirm">Confirmar password: </label>
+            <input type="password" name="confirm" id="confirm">
+            <br>
+            <br>
+            <input type="submit" id="submit" value="Procesar">
+        </form>
+    </center>
+    <script type="text/javascript">
+        function validarEmail(email) {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+        var form = document.procesar;
+        document.procesar.onsubmit = function(e) {
+            var ready = false;
+            if (form.nombre.value != "" && form.apellidos.value != "" && form.email.value != "" &&
+                form.password.value != "" && form.confirm.value != "") {
+                ready = true;
+            } else {
+                ready = false;
+                alert("Aún hay campos vacios");
+                e.preventDefault();
+            }
+            if (ready) {
+                if (validarEmail(form.email.value)) {
+                    if (form.password.value == form.confirm.value) {
+                        ready = true;
+                    } else {
+                        ready = false;
+                        alert("La contraseña y la confirmación no coinciden");
+                        form.password.focus();
+                        e.preventDefault();
+                    }
+                } else {
+                    alert("El correo no valido!");
+                    form.email.focus();
+                    e.preventDefault();
+                }
+            }
+        }
+    </script>
+</body>
+
+</html
